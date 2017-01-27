@@ -2,7 +2,7 @@
 
 <plugin xmlns="http://cordova.apache.org/ns/plugins/1.0" 
     xmlns:android="http://schemas.android.com/apk/res/android" 
-        id="de.letsbundle.webintent"
+        id="bundle-cordova-webintent"
       version="1.0.0">
     <name>WebIntent</name>
     <description>Web intents for Cordova</description>
