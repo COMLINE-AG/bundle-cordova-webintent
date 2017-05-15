@@ -2,6 +2,7 @@ package com.borismus.webintent;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ArrayList;
 
 import org.apache.cordova.CordovaActivity;
 import org.json.JSONArray;
@@ -20,13 +21,13 @@ import org.apache.cordova.PluginResult;
 /**
  * WebIntent is a PhoneGap plugin that bridges Android intents and web
  * applications:
- * 
+ *
  * 1. web apps can spawn intents that call native Android applications. 2.
  * (after setting up correct intent filters for PhoneGap applications), Android
  * intents can be handled by PhoneGap web applications.
- * 
+ *
  * @author boris@borismus.com
- * 
+ *
  */
 public class WebIntent extends CordovaPlugin {
 
@@ -67,6 +68,12 @@ public class WebIntent extends CordovaPlugin {
                 callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK));
                 return true;
 
+            } else if (action.equals("getAction")) {
+                Intent i = ((CordovaActivity)this.cordova.getActivity()).getIntent();
+                //return new PluginResult(PluginResult.Status.OK, i.getAction());
+                callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, i.getAction()));
+                return true;
+
             } else if (action.equals("hasExtra")) {
                 if (args.length() != 1) {
                     //return new PluginResult(PluginResult.Status.INVALID_ACTION);
@@ -94,6 +101,31 @@ public class WebIntent extends CordovaPlugin {
                     }
 
                     callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, r));
+                    return true;
+                } else {
+                    //return new PluginResult(PluginResult.Status.ERROR);
+                    callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.ERROR));
+                    return false;
+                }
+            } else if (action.equals("getExtraArray")) {
+                if (args.length() != 1) {
+                    //return new PluginResult(PluginResult.Status.INVALID_ACTION);
+                    callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.INVALID_ACTION));
+                    return false;
+                }
+                Intent intent = ((CordovaActivity)this.cordova.getActivity()).getIntent();
+                String extraName = args.getString(0);
+                if (intent.hasExtra(extraName)) {
+                    ArrayList<String> arrayListExtra = intent.getStringArrayListExtra(extraName);
+                    JSONArray jsonResult = new JSONArray();
+
+                    if (arrayListExtra != null && arrayListExtra.isEmpty() == false) {
+                        for (int index = 0; index < arrayListExtra.size(); index++){
+                            jsonResult.put(arrayListExtra.get(index));
+                        }
+                    }
+
+                    callbackContext.sendPluginResult(new PluginResult(PluginResult.Status.OK, jsonResult));
                     return true;
                 } else {
                     //return new PluginResult(PluginResult.Status.ERROR);

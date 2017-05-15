@@ -32,7 +32,7 @@ Here is an example of using webintent to open an Android .apk package, which the
 
 
 ## Using the plugin ##
-The plugin creates the object `window.plugins.webintent` with five methods:
+The plugin creates the object `window.plugins.webintent` with the following methods:
 
 ### startActivity ###
 Launches an Android intent. For example:
@@ -45,6 +45,14 @@ Launches an Android intent. For example:
         function() {alert('Failed to open URL via Android Intent')};
     );
 
+### getAction ###
+Gets the Action name that this app was invoked with. For example:
+
+    window.plugins.webintent.getAction(
+        function(actionName) {
+            // actionName is the returned action name
+        }
+    );
 
 ### hasExtra ###
 checks if this app was invoked with the specified extra. For example:
@@ -67,6 +75,17 @@ Gets the extra that this app was invoked with. For example:
             // There was no extra supplied.
         }
     );
+    
+### getExtraArray ###
+Gets the extra that this app was invoked with as a string list. For example:
+
+    window.plugins.webintent.getExtraArray(window.plugins.webintent.EXTRA_STREAM,
+        function(urlList) {
+            // urlList is a list of values of EXTRA_STREAM
+        }, function() {
+            // There was no extra supplied.
+        }
+    );    
 
 ### getUri ###
 Gets the Uri the app was invoked with. For example:
