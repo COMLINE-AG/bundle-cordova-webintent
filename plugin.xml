@@ -34,4 +34,27 @@
 
         <source-file src="src/android/WebIntent.java" target-dir="src/com/borismus/webintent" />
     </platform>
+    <!-- iOS -->
+    <platform name="ios">
+        <config-file target="*-Info.plist" parent="CFBundleDocumentTypes">
+            <array>
+                <dict>
+                    <key>CFBundleTypeIconFiles</key>
+                    <array>
+                        <string>icon.png</string>
+                    </array>
+                    <key>CFBundleTypeName</key>
+                    <string>image</string>
+                    <key>CFBundleTypeRole</key>
+                    <string>Viewer</string>
+                    <key>LSHandlerRank</key>
+                    <string>Default</string>
+                    <key>LSItemContentTypes</key>
+                    <array>
+                        <string>public.image</string>
+                    </array>
+                </dict>
+            </array>
+        </config-file>
+    </platform>
 </plugin>
