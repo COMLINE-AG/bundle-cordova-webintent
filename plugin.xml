@@ -1,60 +1,200 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<plugin xmlns="http://cordova.apache.org/ns/plugins/1.0" 
-    xmlns:android="http://schemas.android.com/apk/res/android" 
+<plugin xmlns="http://cordova.apache.org/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         id="bundle-cordova-webintent"
-      version="1.0.2">
-    <name>WebIntent</name>
-    <description>Web intents for Cordova</description>
-    <license>MIT</license>
-    <keywords>cordova, webintent</keywords>
+        version="1.0.2">
+	<name>WebIntent</name>
+	<description>Web intents for Cordova</description>
+	<license>MIT</license>
+	<keywords>cordova, webintent</keywords>
 
-    <js-module src="www/webintent.js" name="WebIntent">
-        <clobbers target="WebIntent" />
-    </js-module>
+	<js-module src="www/webintent.js" name="WebIntent">
+		<clobbers target="WebIntent"/>
+	</js-module>
 
-    <!-- android -->
-    <platform name="android">
-        <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="WebIntent" >
-                <param name="android-package" value="com.borismus.webintent.WebIntent"/>
-                <param name="onload" value="true" />
-            </feature>
-        </config-file>
-          
-        <!-- adding Intent filter to allow sharing images to app -->
-        <config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
-            <intent-filter>
-                <action android:name="android.intent.action.SEND" />
-                <action android:name="android.intent.action.SEND_MULTIPLE" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="image/*" />
-            </intent-filter>
-        </config-file>
+	<!-- android -->
+	<platform name="android">
+		<config-file target="res/xml/config.xml" parent="/*">
+			<feature name="WebIntent">
+				<param name="android-package" value="com.borismus.webintent.WebIntent"/>
+				<param name="onload" value="true"/>
+			</feature>
+		</config-file>
 
-        <source-file src="src/android/WebIntent.java" target-dir="src/com/borismus/webintent" />
-    </platform>
-    <!-- iOS -->
-    <platform name="ios">
-        <config-file target="*-Info.plist" parent="CFBundleDocumentTypes">
-            <array>
-                <dict>
-                    <key>CFBundleTypeIconFiles</key>
-                    <array>
-                        <string>icon.png</string>
-                    </array>
-                    <key>CFBundleTypeName</key>
-                    <string>image</string>
-                    <key>CFBundleTypeRole</key>
-                    <string>Viewer</string>
-                    <key>LSHandlerRank</key>
-                    <string>Default</string>
-                    <key>LSItemContentTypes</key>
-                    <array>
-                        <string>public.image</string>
-                    </array>
-                </dict>
-            </array>
-        </config-file>
-    </platform>
+		<!-- adding Intent filter to allow sharing images to app -->
+		<config-file target="AndroidManifest.xml" parent="/manifest/application/activity">
+			<intent-filter>
+				<action android:name="android.intent.action.SEND"/>
+				<action android:name="android.intent.action.SEND_MULTIPLE"/>
+				<category android:name="android.intent.category.DEFAULT"/>
+				<data android:mimeType="image/*"/>
+				<data android:mimeType="application/*"/>
+			</intent-filter>
+		</config-file>
+
+		<source-file src="src/android/WebIntent.java" target-dir="src/com/borismus/webintent"/>
+	</platform>
+	<!-- iOS -->
+	<platform name="ios">
+		<config-file target="*-Info.plist" parent="CFBundleDocumentTypes">
+			<array>
+				<dict>
+					<key>CFBundleTypeIconFiles</key>
+					<array>
+						<string>icon.png</string>
+					</array>
+					<key>CFBundleTypeName</key>
+					<string>image</string>
+					<key>CFBundleTypeRole</key>
+					<string>Viewer</string>
+					<key>LSHandlerRank</key>
+					<string>Default</string>
+					<key>LSItemContentTypes</key>
+					<array>
+						<string>public.image</string>
+					</array>
+				</dict>
+				<dict>
+					<key>CFBundleTypeName</key>
+					<string>PDF Document</string>
+					<key>LSItemContentTypes</key>
+					<array>
+						<string>com.adobe.pdf</string>
+					</array>
+				</dict>
+				<dict>
+					<key>CFBundleTypeName</key>
+					<string>Microsoft Excel</string>
+					<key>LSHandlerRank</key>
+					<string>Alternate</string>
+					<key>LSItemContentTypes</key>
+					<array>
+						<string>org.openxmlformats.spreadsheetml.sheet</string>
+						<string>com.microsoft.excel.xls</string>
+					</array>
+				</dict>
+				<dict>
+					<key>CFBundleTypeName</key>
+					<string>Microsoft Word</string>
+					<key>LSHandlerRank</key>
+					<string>Alternate</string>
+					<key>LSItemContentTypes</key>
+					<array>
+						<string>com.microsoft.word.doc</string>
+						<string>com.microsoft.word.wordml</string>
+						<string>org.openxmlformats.wordprocessingml.document</string>
+					</array>
+				</dict>
+				<dict>
+					<key>CFBundleTypeName</key>
+					<string>Microsoft PowerPoint</string>
+					<key>LSHandlerRank</key>
+					<string>Alternate</string>
+					<key>LSItemContentTypes</key>
+					<array>
+						<string>com.microsoft.powerpoint.ppt</string>
+						<string>org.openxmlformats.presentationml.presentation</string>
+					</array>
+				</dict>
+				<dict>
+					<key>CFBundleTypeExtensions</key>
+					<array>
+						<string>zip</string>
+						<string>zipx</string>
+					</array>
+					<key>CFBundleTypeName</key>
+					<string>Zip archive</string>
+					<key>LSHandlerRank</key>
+					<string>Alternate</string>
+					<key>LSItemContentTypes</key>
+					<array>
+						<string>public.zip-archive</string>
+						<string>public.archive</string>
+						<string>com.pkware.zip-archive</string>
+						<string>com.pkware.zipx-archive</string>
+					</array>
+				</dict>
+				<dict>
+					<key>CFBundleTypeExtensions</key>
+					<array>
+						<string>rar</string>
+						<string>RAR</string>
+					</array>
+					<key>CFBundleTypeName</key>
+					<string>Rar archive</string>
+					<key>LSHandlerRank</key>
+					<string>Alternate</string>
+					<key>LSItemContentTypes</key>
+					<array>
+						<string>com.rarlab.rar-archive</string>
+						<string>public.archive</string>
+					</array>
+				</dict>
+				<dict>
+					<key>CFBundleTypeExtensions</key>
+					<array>
+						<string>7z</string>
+						<string>7Z</string>
+					</array>
+					<key>CFBundleTypeName</key>
+					<string>7z archive</string>
+					<key>LSHandlerRank</key>
+					<string>Alternate</string>
+					<key>LSItemContentTypes</key>
+					<array>
+						<string>org.7-zip.7-zip-archive</string>
+						<string>public.archive</string>
+					</array>
+				</dict>
+				<dict>
+					<key>CFBundleTypeName</key>
+					<string>Text</string>
+					<key>LSHandlerRank</key>
+					<string>Alternate</string>
+					<key>LSItemContentTypes</key>
+					<array>
+						<string>public.text</string>
+						<string>public.plain-text</string>
+						<string>public.utf8-plain-text</string>
+						<string>public.utf16-external-plain-text</string>
+						<string>public.utf16-plain-text</string>
+						<string>com.apple.traditional-mac-plain-text</string>
+						<string>public.source-code</string>
+						<string>public.c-source</string>
+						<string>public.objective-c-source</string>
+						<string>public.c-plus-plus-source</string>
+						<string>public.objective-c-plus-plus-source</string>
+						<string>public.c-header</string>
+						<string>public.c-plus-plus-header</string>
+						<string>com.sun.java-source</string>
+						<string>public.script</string>
+						<string>public.shell-script</string>
+					</array>
+				</dict>
+				<dict>
+					<key>CFBundleTypeName</key>
+					<string>Audio</string>
+					<key>LSHandlerRank</key>
+					<string>Alternate</string>
+					<key>LSItemContentTypes</key>
+					<array>
+						<string>public.audio</string>
+						<string>public.mp3</string>
+					</array>
+				</dict>
+				<dict>
+					<key>CFBundleTypeName</key>
+					<string>Video</string>
+					<key>LSHandlerRank</key>
+					<string>Alternate</string>
+					<key>LSItemContentTypes</key>
+					<array>
+						<string>public.movie</string>
+						<string>public.video</string>
+					</array>
+				</dict>
+			</array>
+		</config-file>
+	</platform>
 </plugin>
